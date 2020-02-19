@@ -83,7 +83,7 @@ If you want to set up video conference service with SVT-HEVC Encoder on Ubuntu 1
 
 If you want to set up video conference service powered by GPU-accelerated OWT server through Intel® Media SDK, please follow the below instructions to install server side SDK where the video-agents run.
 
-If you are working on the following platforms with the integrated graphics, please install Intel® Media SDK. The current release is fully tested on MediaSDK 2018 Q4(https://github.com/Intel-Media-SDK/MediaSDK/releases/tag/intel-mediasdk-18.4.0).
+如果你正工作在以下平台，并且使用的是集成显卡，请先安装Intel® Media SDK。目前最新的发布版在MediaSDK 2018 Q4上进行了全面的测试(https://github.com/Intel-Media-SDK/MediaSDK/releases/tag/intel-mediasdk-18.4.0)。
 
  - Intel® Xeon® E3-1200 v4 Family with C226 chipset
  - Intel® Xeon® E3-1200 and E3-1500 v5 Family with C236 chipset
@@ -91,9 +91,9 @@ If you are working on the following platforms with the integrated graphics, plea
  - 6th Generation Intel® CoreTM
  - 7th Generation Intel® CoreTM
 
-For download or installation instructions, please visit https://github.com/Intel-Media-SDK/MediaSDK.
+访问https://github.com/Intel-Media-SDK/MediaSDK查看下载和安装的指令。
 
-The external stream output and mp4 format recording rely on AAC encoder libfdk_aac support in ffmpeg library, please see [Compile and deploy ffmpeg with libfdk_aac](#Conferencesection2_3_5) section for detailed instructions.
+外部流输出、mp4格式的录像依赖于AAC编码器libfdk_aac（这个编码器在ffmpeg库中），具体请见：[编译和部署带libfdk_aac编码器的ffmpeg库](#Conferencesection2_3_5) section for detailed instructions.
 
  **Table 2-2. Client compatibility**
 Application Name|Google Chrome\* 78|Mozilla Firefox\* 70|Microsoft Edge\* 44.18362.387.0|Safari\* 13.0|Open WebRTC Toolkit Client SDK for Android | Open WebRTC Toolkit Client SDK for iOS | Open WebRTC Toolkit Client SDK for Windows
@@ -101,49 +101,50 @@ Application Name|Google Chrome\* 78|Mozilla Firefox\* 70|Microsoft Edge\* 44.183
 OWT Client|YES|YES|YES|YES|YES|YES|YES
 Management Console|YES|YES|YES|YES|N/A|N/A|N/A
 
-## 2.3 Install the OWT server {#Conferencesection2_3}
-This section describes the dependencies and steps for installing the OWT server.
-### 2.3.1 Dependencies {#Conferencesection2_3_1}
-**Table 2-3. OWT Server Dependencies**
-Name|Version|Remarks
+## 2.3 安装OWT服务器 {#Conferencesection2_3}
+本小节描述了安装OWT服务器的依赖项和步骤。
+### 2.3.1 依赖项 {#Conferencesection2_3_1}
+**Table 2-3. OWT服务器的依赖项**
+名称|版本|附注
 --------|--------|--------
 Node.js |8.15.0|Website: http://nodejs.org/
-Node modules|Specified|N/A
+Node modules|指定的版本|N/A
 MongoDB| 2.6.10 |Website: http://mongodb.org
-System libraries|Latest|N/A
+System libraries|最新的|N/A
 
-All dependencies, except system libraries, are provided or can be automatically installed with the release package.
+除了系统库，所有的依赖项，要么包含在发布版的包中，要么可以通过发布版的包进行自动安装。
 
-All essential system libraries are installed when you install the OWT server package using the Ubuntu or CentOS's package management system.
+当你使用Ubuntu或CentOS的包管理器安装OWT服务器包时，所有必要的系统库都会被安装上。
 
-Regarding Node.js*, make sure it's installed in your system prior to installing the OWT server. We recommend version 8.15.0. Refer to http://nodejs.org/ for the details and installation.
+要保证安装OWT服务器之前已经安装了Node.js。我们推荐的版本是8.15.0。参阅http://nodejs.org/获取更多细节以及如何安装。
 
-Before installing the OWT server, make sure your login account has sys-admin privileges; i.e. the ability to execute `sudo`.
+在安装OWT服务器之前，确保你的登录用户有系统权限，换句话说就是能执行`sudo`。
 
-### 2.3.2 Configure the OWT server machine {#Conferencesection2_3_2}
+### 2.3.2 配置OWT服务器的机器 {#Conferencesection2_3_2}
 
-If you run OWT server on CentOS, configure the system firewall well to make sure all ports required by OWT server components are open.
+如果你的服务器运行在CentOS上，需要配置系统防火墙来保证所有OWT服务器组件需要的端口是打开的。
 
-### 2.3.3 Install the OWT server package {#Conferencesection2_3_3}
+### 2.3.3 安装OWT服务器的包 {#Conferencesection2_3_3}
 
-On the server machine, directly unarchive the package file.
+在服务器的机器上，解压压缩包。
 
 ~~~~~~{.sh}
     tar xf CS_WebRTC_Conference_Server_MCU.v<Version>.CentOS.tgz
 ~~~~~~
 
-For Ubuntu version OWT server, do as following:
+对于Ubuntu版的OWT服务器，则这样做：
 
 ~~~~~~{.sh}
     tar xf CS_WebRTC_Conference_Server_MCU.v<Version>.Ubuntu.tgz
 ~~~~~~
 
-### 2.3.4 Deploy Cisco OpenH264* Library {#Conferencesection2_3_4}
-The default H.264 library installed is a pseudo one without any media logic. To enable H.264 support in non GPU-accelerated OWT server system, you must deploy the Cisco OpenH264 library. Choose yes to download and enable Cisco Open H264 library during video-agent dependency installation at Release-<Version>/[video_agent/analytics_agent]/install_deps.sh.
+### 2.3.4 部署Cisco OpenH264*库 {#Conferencesection2_3_4}
+默认安装的H.264库是一个没有任何媒体处理逻辑的“伪库”。
+ To enable H.264 support in non GPU-accelerated OWT server system, you must deploy the Cisco OpenH264 library. Choose yes to download and enable Cisco Open H264 library during video-agent dependency installation at Release-<Version>/[video_agent/analytics_agent]/install_deps.sh.
 
 Or you can also use install_openh264.sh or uninstall_openh264.sh scripts under Release-<Version>/video_agent folder to enable or disable Cisco OpenH264 library later.
 
-### 2.3.5 Compile and deploy ffmpeg with libfdk_aac {#Conferencesection2_3_5}
+### 2.3.5 编译和部署带libfdk_aac编码器的ffmpeg库 {#Conferencesection2_3_5}
 
 The default ffmpeg library used by OWT server has no libfdk_aac support. If you want to enable libfdk_aac for external stream output or mp4 format recording, please compile and deploy ffmpeg yourself with following steps:
 
