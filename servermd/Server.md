@@ -1,24 +1,24 @@
-Open WebRTC Toolkit(OWT) Server User Guide
+Open WebRTC Toolkit(OWT) 服务端用户指南
 ----------------------
 
-# 1 Overview {#Conferencesection1}
-## 1.1 Introduction {#Conferencesection1_1}
-Welcome to the Open WebRTC Toolkit Server User Guide. This guide describes how to install and configure the Open WebRTC Toolkit Server for multi-party conferences and so on. This guide also explains how to install and launch the Peer Server for peer-to-peer communications.
+# 1 概览 {#Conferencesection1}
+## 1.1 介绍 {#Conferencesection1_1}
+欢迎来到Open WebRTC Toolkit服务端用户指南。这份指南描述了如何安装、配置OWT服务器，使其能用于多方会议等目的。这份指南同时也解释了如何安装和运行Peer服务器来进行点对点通信。
 
-Open WebRTC Toolkit Server provides an efficient WebRTC-based video conference service that scales a single WebRTC stream out to many endpoints. The following list briefly explains the purpose of each section in this guide:
+Open WebRTC Toolkit服务器提供了一个高效的基于WebRTC的视频会议服务，这个服务可以把一个单一的WebRTC流扩展到多个端点。下面的列表简要地说明了这份文档中每个小节的目标：
 
- - Section 1. Introduction and conventions used in this guide.
- - Section 2. Installing and configuring the OWT server.
- - Section 3. Brief guide of OWT server manangement console.
- - Section 4. Installing the OWT sample application server.
- - Section 5. Installing and launching the Peer Server.
+ - 小节1. 这份指南中用到的介绍性文字和约定
+ - 小节2. 安装和配置OWT服务器
+ - 小节3. OWT服务器管理控制台的简明指南
+ - 小节4. 安装OWT示例应用服务器
+ - 小节5. 安装和运行Peer服务器
 
-Installation requirements and dependencies for the OWT server, sample application server, and peer server are described in their associated sections.
+OWT服务器、示例应用服务器、以及peer服务器在安装过程中的必要条件和依赖项，会在相应的小节进行描述。
 
-##1.2 Terminology {#Conferencesection1_2}
-This manual uses the following acronyms and terms:
+##1.2 术语 {#Conferencesection1_2}
+本手册用到了以下的缩略词和术语：
 
-  Abbreviation       |  Full Name
+  缩写       |  完整名称
 -------------|--------------
 ADT|Android Developer Toolkit
 API|Application Programming Interface
@@ -41,8 +41,8 @@ SIP|Session Initiation Protocol
 XMPP|Extensible Messaging and Presence Protocol
 WebRTC|Web Real-Time Communication
 
-##1.3 For more information {#Conferencesection1_3}
-For more information, visit the following Web pages:
+##1.3 更多信息 {#Conferencesection1_3}
+如果想获取更多信息，可以访问以下网页：
 
  - Intel HTML Developer Zone: https://software.intel.com/en-us/html5/tools
  - Intel<sup>®</sup> Collaboration Suite for WebRTC
@@ -57,25 +57,26 @@ For more information, visit the following Web pages:
  - W3C WebRTC Working Group: http://www.w3.org/2011/04/webrtc/
  - WebRTC Open Project: http://www.webrtc.org
 
-# 2 OWT Server Installation {#Conferencesection2}
+# 2 OWT服务器的安装 {#Conferencesection2}
 
-## 2.1 Introduction {#Conferencesection2_1}
+## 2.1 介绍 {#Conferencesection2_1}
 
-This section describes the system requirements for installing the OWT server, and the compatibility with its client.
+本小节描述了安装OWT服务器时系统的必要项，和对它的客户端的兼容性。
 
-> **Note**:    Installation requirements for the peer server are described in <a href="#Conferencesection5">section 5</a> of this guide.
+> **注意**:    安装Peer服务器的必要条件在这份指南的<a href="#Conferencesection5">第5小节</a>。
 
-## 2.2 Requirements and compatibility {#Conferencesection2_2}
+## 2.2 必要条件和兼容性 {#Conferencesection2_2}
 
-Table 2-1 describes the system requirements for installing the OWT server. Table 2-2 gives an overview of OWT server compatibility with the client.
+表2-1描述了安装OWT服务器时系统的必要项。 describes the system requirements for installing the OWT server. 表2-2 gives an overview of OWT server compatibility with the client.
 
 **Table 2-1. Server requirements**
 Application name|OS version
 -------------|--------------
-OWT server|CentOS* 7.6, Ubuntu 18.04 LTS
+OWT服务器|CentOS* 7.6, Ubuntu 18.04 LTS
 
-The GPU-acceleration can only be enabled on kernel 4.14 or later (4.19 or later is recommended).
+GPU加速只能在内核4.14或更高版本下启用（推荐4.19或更高版本）。
 
+如果你想设置视频会议服务
 If you want to set up video conference service with H.264 codec support powered by non GPU-accelerated OWT server, OpenH264 library is required. See [Deploy Cisco OpenH264* Library](#Conferencesection2_3_4) section for more details.
 
 If you want to set up video conference service with SVT-HEVC Encoder on Ubuntu 18.04 LTS. See [Deploy SVT-HEVC Encoder Library](#Conferencesection2_3_6) section for more details.
@@ -514,35 +515,35 @@ The following instructions are provided only as recommendations regarding securi
         sudo setcap cap_net_bind_service=+ep $(which node)
 
     If you are still not able to bypass the 1024 port limitation, remember to put the **OWT server library path into /etc/ld.so.conf.d**.
-# 3 OWT Server Management Console Brief Guide {#Conferencesection3}
-## 3.1 Introduction {#Conferencesection3_1}
+# 3 OWT服务器管理控制台的简明指南 {#Conferencesection3}
+## 3.1 介绍 {#Conferencesection3_1}
 The OWT Server Management Console is the frontend console to manage the OWT server. It is built with OWT's server-side APIs and it provides the management interface to OWT administrators.
-## 3.2 Access {#Conferencesection3_2}
-Once you have launched OWT servers, you can then access the console via a browser at https://XXXX:3300/console/ by default. You will be asked for your the service-id and service-key in order to access the service.
+## 3.2 访问 {#Conferencesection3_2}
+OWT服务器运行起来之后，默认情况下你就可以在浏览器里通过https://XXXX:3300/console/访问控制台。为了访问这个服务，你会被问及service-id和service-key。
 
-After inputting your service-id and service-key in the dialog prompt, choose 'remember me' and click 'save changes' to save your session. If you want to switch to another service, click the ‘profile' button on the upper-right corner to get in this dialog prompt and do the similar procedure again. If you want to log out the management console, click the red ‘clear cookie' button in the dialog prompt.
+在弹出的对话框里填入service-id和service-key后，选择'remember me'然后点击'save changes'，这会保存你的会话。如果你想切换到其他服务，点击右上角的'profile'按钮，在弹出的对话框里填入新的service-id和service-key。如果你想要退出，则在弹出的对话框中点击红色的‘clear cookie'按钮。
 
-If you have not launched OWT servers, you should launch the management-api server before accessing the management console:
+如果还没有运行OWT服务器，那你在运行管理控制台之前，应该运行management-api服务器：
 
     cd Release-<Version>/
     bin/daemon.sh start management-api
     bin/daemon.sh start management-console
 
-## 3.3 Source Code {#Conferencesection3_3}
-The source code of the management console is in Release-<Version>/management_console/public/.
-## 3.4 Service Management {#Conferencesection3_4}
-Only super service user can access service management, in the 'overview' tab to create or delete services. The service is the instance that owns rooms and has the ability to manage them. 
-> **Note**: Super service cannot be deleted, it can be configured in management_api/management_api.toml.
+## 3.3 源码 {#Conferencesection3_3}
+管理控制台的源码在Release-<Version>/management_console/public/目录。
+## 3.4 服务管理 {#Conferencesection3_4}
+只有super service user可以访问service management，在'overview'标签创建或删除服务。服务是一个实例，这种实例可以拥有房间，并且有能力管理房间。
+> **注意**: 超级服务不能被删除，在management_api/management_api.toml可以对超级服务进行配置。
 
-## 3.5 Room Management {#Conferencesection3_5}
-Any service user can do room management inside the service, including creating, deleting or modifying rooms.
+## 3.5 房间管理 {#Conferencesection3_5}
+在一个服务中，任意的服务用户都可以管理房间，包括对房间的创建、删除、修改。
 
-To modify rooms, a user can edit room configuration for its own preference. The the details of each configuration item for room are listed in the following table:
+用户可以在自己的偏好设置中编辑房间的配置项来修改房间。下表列出的是房间的每一个配置项的细节：
 
- **Table 3-1. Room Configuration**
-Item|Description
+ **表3-1. 房间的配置项**
+条目|描述
 --------|------------------
-name | The name of the room (name is not equal to the ID, room's ID cannot be changed once created)
+name | 房间的名字 (名字不同于ID，房间一旦创建，其ID不能被修改)
 inputLimit | The input limitation for the room, means how many publication can a room allow
 participantLimit | The max participant number of the room
 roles | The role definition list for the room, for the description of list element see the role.*
